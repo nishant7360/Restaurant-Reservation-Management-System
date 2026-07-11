@@ -223,3 +223,26 @@ export const updateReservation = asyncHandler(async (req, res) => {
       ),
     );
 });
+
+export const completeReservation = asyncHandler(async (req, res) => {
+  const reservation = await Reservation.findById(req.params.id);
+
+  if (!reservation) {
+    throw new ApiError(404, "Reservation not found");
+  }
+
+  if (reservation.status === "Cancelled") {
+    throw new ApiError(400, "Cancelled reservation cannot be completed");
+  }
+
+  if (reservation.status === "Completed") {
+    throw new ApiError(400, "Reservation already completed");
+  }
+
+  reservation.status = "Completed";
+  await reservation.save();
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, reservation, "Reservation marked as completed"));
+});

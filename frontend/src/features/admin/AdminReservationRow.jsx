@@ -1,5 +1,6 @@
 import ReservationStatusBadge from "../../components/ReservationStatusBadge";
 import { formatDateTime } from "../../components/statusStyles";
+import { useCompleteReservation } from "./useCompleteReservation";
 
 function AdminReservationRow({ reservation, onCancel, onEdit, isCancelling }) {
   const {
@@ -12,6 +13,8 @@ function AdminReservationRow({ reservation, onCancel, onEdit, isCancelling }) {
     status,
   } = reservation;
   const isActionable = status === "Booked";
+  const { mutate: complete, isPending: isCompleting } =
+    useCompleteReservation();
 
   return (
     <tr className="border-t border-gray-100">
@@ -32,6 +35,13 @@ function AdminReservationRow({ reservation, onCancel, onEdit, isCancelling }) {
       <td className="px-4 py-3.5 text-right">
         {isActionable ? (
           <div className="flex justify-end gap-1.5">
+            <button
+              onClick={() => complete(reservation._id)}
+              disabled={isCompleting}
+              className="bg-orange-600 text-white px-3 py-1.5 rounded-full text-xs font-medium hover:bg-orange-700 disabled:opacity-60"
+            >
+              {isCompleting ? "Marking..." : "Complete"}
+            </button>
             <button
               onClick={() => onEdit(reservation)}
               className="bg-white text-gray-700 border border-gray-300 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-gray-50"

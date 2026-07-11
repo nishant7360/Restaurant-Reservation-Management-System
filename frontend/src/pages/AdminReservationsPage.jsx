@@ -5,7 +5,7 @@ import AdminReservationTable from "../features/admin/AdminReservationTable";
 import EditReservationModal from "../features/admin/EditReservationModal";
 import DateFilter from "../components/DateFilter";
 
-function AdminDashboard() {
+function AdminReservationsPage() {
   const [date, setDate] = useState("");
   const [editingReservation, setEditingReservation] = useState(null);
   const { data: reservations, isLoading, isError } = useAllReservations(date);
@@ -16,10 +16,10 @@ function AdminDashboard() {
   } = useCancelReservationAdmin();
 
   return (
-    <div className="px-6 py-10 max-w-6xl mx-auto">
+    <div className="px-8 py-10 max-w-5xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <h1 className="font-serif text-2xl font-medium text-gray-900">
-          All Reservations
+          Reservations
         </h1>
         <DateFilter value={date} onChange={setDate} />
       </div>
@@ -54,4 +54,4 @@ function AdminDashboard() {
   );
 }
 
-export default AdminDashboard;
+export default AdminReservationsPage;

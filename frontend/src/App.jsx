@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AppLayout from "./components/AppLayout";
 import Home from "./pages/Home";
 import Login from "./features/auth/Login";
@@ -11,6 +11,9 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import Dashboard from "./pages/DashBoard.jsx";
 import BookReservation from "./pages/BookReservation.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
+import AdminLayout from "./components/AdminLayout.jsx";
+import AdminReservationsPage from "./pages/AdminReservationsPage.jsx";
+import AdminTablesPage from "./pages/AdminTablesPage.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,6 +54,18 @@ function App() {
               <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/reserve" element={<BookReservation />} />
+
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route
+                    index
+                    element={<Navigate to="/admin/reservations" replace />}
+                  />
+                  <Route
+                    path="reservations"
+                    element={<AdminReservationsPage />}
+                  />
+                  <Route path="tables" element={<AdminTablesPage />} />
+                </Route>
               </Route>
             </Route>
             <Route path="*" element={<PageNotFound />} />

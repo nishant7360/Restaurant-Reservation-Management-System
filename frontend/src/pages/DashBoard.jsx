@@ -1,11 +1,15 @@
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import CustomerDashboard from "./CustomerDashboard";
-import AdminDashboard from "./AdminDashboard";
 
 function Dashboard() {
   const { isAdmin } = useAuth();
 
-  return isAdmin ? <AdminDashboard /> : <CustomerDashboard />;
+  if (isAdmin) {
+    return <Navigate to="/admin/reservations" replace />;
+  }
+
+  return <CustomerDashboard />;
 }
 
 export default Dashboard;

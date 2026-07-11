@@ -2,6 +2,7 @@ import express from "express";
 import {
   cancelMyReservation,
   cancelReservation,
+  completeReservation,
   getAllReservations,
   myReservations,
   reserveTable,
@@ -19,5 +20,5 @@ router.patch("/my/:id/cancel", protect, cancelMyReservation);
 router.get("/", protect, authorize("admin"), getAllReservations);
 router.patch("/cancel/:id", protect, authorize("admin"), cancelReservation);
 router.patch("/:id", protect, authorize("admin"), updateReservation);
-
+router.patch("/:id/complete", protect, authorize("admin"), completeReservation);
 export default router;

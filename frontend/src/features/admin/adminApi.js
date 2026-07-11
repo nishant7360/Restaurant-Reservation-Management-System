@@ -47,3 +47,18 @@ export async function updateReservationAdmin(
     );
   }
 }
+
+export async function markCompleteReservation(id) {
+  try {
+    const response = await axios.patch(
+      `${BASE_URL}/reservations/${id}/complete`,
+      {},
+      { withCredentials: true },
+    );
+    return response.data.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to mark complete reservation",
+    );
+  }
+}
