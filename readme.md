@@ -251,8 +251,6 @@ With additional development time, the following enhancements could be added:
 - Online payments.
 - Reservation history and reporting.
 - Advanced search, filtering, and pagination.
-- Unit and integration testing.
-- Docker support and CI/CD pipeline.
 
 ---
 
