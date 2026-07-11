@@ -40,10 +40,11 @@ export const login = asyncHandler(async (req, res) => {
   if (!email || !password) {
     throw new ApiError(400, "Email and password are required");
   }
-  const user = await User.findOne({ email });
+
+  const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
-    throw new ApiError(404, "User does't exist with this email");
+    throw new ApiError(404, "User doesn't exist with this email");
   }
 
   const isCorrectPassword = await user.comparePassword(password);
@@ -60,6 +61,8 @@ export const login = asyncHandler(async (req, res) => {
     sameSite: "strict",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
+
+  user.password = undefined;
 
   return res.status(200).json(new ApiResponse(200, user, "Login successful"));
 });
