@@ -6,10 +6,11 @@ import Register from "./features/auth/Register";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
-import { AuthProvider } from "./context/authContext";
-import { AdminRoute, CustomerRoute } from "./components/ProtectedRoute";
-import MyBookings from "./pages/MyBookings";
-import AdminDashboard from "./pages/AdminDashboard";
+import { AuthProvider } from "./context/AuthContext.jsx";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import Dashboard from "./pages/DashBoard.jsx";
+import BookReservation from "./pages/BookReservation.jsx";
+import PageNotFound from "./pages/PageNotFound.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,14 +48,12 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
 
-              <Route element={<CustomerRoute />}>
-                <Route path="/bookings" element={<MyBookings />} />
-              </Route>
-
-              <Route element={<AdminRoute />}>
-                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/reserve" element={<BookReservation />} />
               </Route>
             </Route>
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

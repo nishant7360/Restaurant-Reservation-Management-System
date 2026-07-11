@@ -15,23 +15,3 @@ export function ProtectedRoute() {
   if (isLoading) return <LoadingScreen />;
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 }
-
-export function AdminRoute() {
-  const { isAuthenticated, isAdmin, isLoading } = useAuth();
-
-  if (isLoading) return <LoadingScreen />;
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
-  if (!isAdmin) return <Navigate to="/" replace />;
-
-  return <Outlet />;
-}
-
-export function CustomerRoute() {
-  const { isAuthenticated, isAdmin, isLoading } = useAuth();
-
-  if (isLoading) return <LoadingScreen />;
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
-  if (isAdmin) return <Navigate to="/admin/dashboard" replace />;
-
-  return <Outlet />;
-}

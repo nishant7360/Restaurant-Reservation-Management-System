@@ -26,7 +26,10 @@ function Footer() {
             <a href="#" className="text-gray-400 hover:text-orange-500">
               About us
             </a>
-            <a href="#" className="text-gray-400 hover:text-orange-500">
+            <a
+              href="/dashboard"
+              className="text-gray-400 hover:text-orange-500"
+            >
               Reservations
             </a>
             <a href="#" className="text-gray-400 hover:text-orange-500">
@@ -53,9 +56,9 @@ function Footer() {
         <div>
           <p className="text-white font-medium text-sm mb-3">Visit us</p>
           <p className="text-gray-400 text-sm mb-2">
-            📍 42 Varanasi Lane, UP, India
+            📍 Hazratganj, Lucknow, UP, India
           </p>
-          <p className="text-gray-400 text-sm mb-2">📞 +91 98765 43210</p>
+          <p className="text-gray-400 text-sm mb-2">📞 +91 1234567890</p>
           <p className="text-gray-400 text-sm">🕐 11am – 11pm, daily</p>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../context/AuthContext";
 
 function Header() {
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
@@ -14,7 +14,6 @@ function Header() {
           Bella Cucina
         </Link>
       </div>
-
       {isAuthenticated ? (
         <div className="relative group">
           <button className="w-9 h-9 rounded-full bg-orange-100 flex items-center justify-center text-orange-700 text-sm font-medium cursor-pointer">
@@ -37,10 +36,10 @@ function Header() {
             </div>
 
             <Link
-              to={isAdmin ? "/admin/dashboard" : "/bookings"}
+              to={"/dashboard"}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-700"
             >
-              My reservations
+              {isAdmin ? "Dashboard" : "My reservations"}
             </Link>
 
             <button

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="bg-white font-sans">
@@ -13,9 +14,12 @@ function Home() {
           the heart of the city.
         </p>
         <div className="flex gap-4 justify-center">
-          <button className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-orange-600 text-white font-medium hover:bg-orange-700">
-            📅 Reserve a table
-          </button>
+          <Link
+            to="/reserve"
+            className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-orange-600 text-white font-medium hover:bg-orange-700"
+          >
+            Reserve a table
+          </Link>
           <button className="px-8 py-3.5 rounded-full bg-white border border-gray-300 text-gray-900 font-medium hover:bg-gray-50">
             View menu
           </button>
