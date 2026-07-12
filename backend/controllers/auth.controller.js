@@ -3,6 +3,7 @@ import generateToken from "../utils/generateToken.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import ApiError from "../utils/ApiError.js";
+import { cookieOptions } from "../utils/cookieOptions.js";
 
 export const register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
@@ -21,12 +22,7 @@ export const register = asyncHandler(async (req, res) => {
 
   const token = generateToken(user._id);
 
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
+  res.cookie("token", token, cookieOptions);
   const createdUser = await User.findById(user._id).select("-password");
 
   return res
@@ -55,26 +51,21 @@ export const login = asyncHandler(async (req, res) => {
 
   const token = generateToken(user._id);
 
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
+  res.cookie("token", token, cookieOptions);
   user.password = undefined;
 
   return res.status(200).json(new ApiResponse(200, user, "Login successful"));
 });
 
 export const logout = asyncHandler(async (req, res) => {
-  res.cookie("token", "", {
-    expires: new Date(0),
-    httpOnly: true,
+  res.clearCookie("token", {
+    httpOnly: cookieOptions.httpOnly,
+    secure: cookieOptions.secure,
+    sameSite: cookieOptions.sameSite,
   });
 
   return res.status(200).json(new ApiResponse(200, {}, "Logout successful"));
 });
-
 export const getMe = asyncHandler(async (req, res) => {
   return res
     .status(200)
